@@ -1,0 +1,11 @@
+C:\Users\roman\Documents\BD\BD\BD\bin\Debug\BD.exe.config
+C:\Users\roman\Documents\BD\BD\BD\bin\Debug\BD.exe
+C:\Users\roman\Documents\BD\BD\BD\bin\Debug\BD.pdb
+C:\Users\roman\Documents\BD\BD\BD\obj\Debug\BD.csprojAssemblyReference.cache
+C:\Users\roman\Documents\BD\BD\BD\obj\Debug\BD.Form1.resources
+C:\Users\roman\Documents\BD\BD\BD\obj\Debug\BD.Properties.Resources.resources
+C:\Users\roman\Documents\BD\BD\BD\obj\Debug\BD.csproj.GenerateResource.cache
+C:\Users\roman\Documents\BD\BD\BD\obj\Debug\BD.csproj.CoreCompileInputs.cache
+C:\Users\roman\Documents\BD\BD\BD\obj\Debug\BD.exe
+C:\Users\roman\Documents\BD\BD\BD\obj\Debug\BD.pdb
+C:\Users\roman\Documents\BD\BD\BD\obj\Debug\BD.Request.resources
