@@ -55,6 +55,7 @@ namespace BD
             this.label5 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -190,7 +191,7 @@ namespace BD
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(174, 45);
             this.button5.TabIndex = 69;
-            this.button5.Text = "В каких отделах состоит сотрудник";
+            this.button5.Text = "Список отделов в магазине, где работает сотрудник ";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -332,11 +333,26 @@ namespace BD
             this.label6.Text = "Введите номер отдела";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
+            // button10
+            // 
+            this.button10.BackColor = System.Drawing.Color.Red;
+            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button10.ForeColor = System.Drawing.Color.White;
+            this.button10.Location = new System.Drawing.Point(503, 15);
+            this.button10.Margin = new System.Windows.Forms.Padding(2);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(116, 37);
+            this.button10.TabIndex = 81;
+            this.button10.Text = "MSysObjects";
+            this.button10.UseVisualStyleBackColor = false;
+            this.button10.Click += new System.EventHandler(this.button10_Click_1);
+            // 
             // Request
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(969, 518);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.label5);
@@ -393,5 +409,6 @@ namespace BD
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button10;
     }
 }

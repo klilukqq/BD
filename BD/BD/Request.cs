@@ -171,7 +171,7 @@ namespace BD
             {
                 OleDbCommand cmd = new OleDbCommand();
                 cmd.Connection = dbConnection;
-                cmd.Parameters.AddWithValue("Введите номер сотрудника", textBox1.Text);
+                cmd.Parameters.AddWithValue("Введите номер сотрудника", textBox1.Text.ToString());
                 cmd.CommandText = "EXEC [Поиск сотрудника по табельному]";
                 cmd.ExecuteNonQuery();
                 OleDbDataReader dbReader = cmd.ExecuteReader();
@@ -231,7 +231,7 @@ namespace BD
             {
                 OleDbCommand cmd = new OleDbCommand();
                 cmd.Connection = dbConnection;
-                cmd.Parameters.AddWithValue("Введите стоимость", textBox2.Text);
+                cmd.Parameters.AddWithValue("Введите стоимость", textBox2.Text.ToString());
                 cmd.CommandText = "EXEC [ТоварыВышеСтоимости]";
                 cmd.ExecuteNonQuery();
                 OleDbDataReader dbReader = cmd.ExecuteReader();
@@ -269,9 +269,9 @@ namespace BD
             {
                 OleDbCommand cmd = new OleDbCommand();
                 cmd.Connection = dbConnection;
-                cmd.Parameters.AddWithValue("Номер поставщика", textBox3.Text);
-                cmd.Parameters.AddWithValue("Название поставщика", textBox5.Text);
-                cmd.Parameters.AddWithValue("Адрес поставщика", textBox4.Text);
+                cmd.Parameters.AddWithValue("Номер поставщика", textBox3.Text.ToString());
+                cmd.Parameters.AddWithValue("Название поставщика", textBox5.Text.ToString());
+                cmd.Parameters.AddWithValue("Адрес поставщика", textBox4.Text.ToString());
                 cmd.CommandText = "EXEC [Добавление поставщик]";
                 cmd.ExecuteNonQuery();
                 
@@ -300,7 +300,7 @@ namespace BD
             {
                 OleDbCommand cmd = new OleDbCommand();
                 cmd.Connection = dbConnection;
-                cmd.Parameters.AddWithValue("Введите номер отдела", textBox6.Text);
+                cmd.Parameters.AddWithValue("Введите номер отдела", textBox6.Text.ToString());
                 cmd.CommandText = "EXEC [Удаление с подзапросом всех товаров из отдела]";
                 cmd.ExecuteNonQuery();
                
@@ -322,10 +322,17 @@ namespace BD
 
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void button10_Click_1(object sender, EventArgs e)
         {
-            String connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=lab3.accdb";
-            OleDbConnection dbConnection = new OleDbConnection(connectionString);
+            OleDbConnection dbConnection = new OleDbConnection(
+                @"Provider=Microsoft.ACE.OLEDB.12.0;" +
+                @"Data Source=""lab3.accdb"";" + 
+                @"Jet OLEDB:Create System Database=true;" +
+                @"Jet OLEDB:System database=C:\Users\roman\AppData\" +
+                @"Roaming\Microsoft\Access\System.mdw"
+            );
+
+            
 
             dataGridView2.Rows.Clear();
             this.Column10.HeaderText = "Id";
@@ -333,27 +340,26 @@ namespace BD
             this.Column12.HeaderText = "ParentId";
             this.Column13.HeaderText = "Type";
             this.Column14.HeaderText = "";
-            this.Column15.HeaderText = ""; ;
+            this.Column15.HeaderText = "";
 
-            dbConnection.Open();// открываем соединение
-            
-                OleDbCommand cmd = new OleDbCommand();
-                cmd.Connection = dbConnection;
-                cmd.CommandText = "EXEC [MSysObjects отображение]";
-                cmd.ExecuteNonQuery();
-                OleDbDataReader dbReader = cmd.ExecuteReader();
+            dbConnection.Open(); // открываем соединение
 
-                if (dbReader.HasRows == false)
-                    MessageBox.Show("Ошибка");
-                else
-                    while (dbReader.Read())
-                    {
-                        dataGridView2.Rows.Add(dbReader.GetValue(dbReader.GetOrdinal("Id")).ToString(), dbReader.GetValue(dbReader.GetOrdinal("Name")).ToString(), dbReader.GetValue(dbReader.GetOrdinal("ParentId")).ToString(), dbReader.GetValue(dbReader.GetOrdinal("Type")).ToString());
-                    }
+            OleDbCommand cmd = new OleDbCommand();
+            cmd.Connection = dbConnection;
+            cmd.CommandText = "EXEC [MSysObjects отображение]";
+            cmd.ExecuteNonQuery();
+            OleDbDataReader dbReader = cmd.ExecuteReader();
 
-                dbReader.Close();
-                dbConnection.Close();
-            
+            if (dbReader.HasRows == false)
+                MessageBox.Show("Ошибка");
+            else
+                while (dbReader.Read())
+                {
+                    dataGridView2.Rows.Add(dbReader.GetValue(dbReader.GetOrdinal("Id")).ToString(), dbReader.GetValue(dbReader.GetOrdinal("Name")).ToString(), dbReader.GetValue(dbReader.GetOrdinal("ParentId")).ToString(), dbReader.GetValue(dbReader.GetOrdinal("Type")).ToString());
+                }
+
+            dbReader.Close();
+            dbConnection.Close();
         }
     }
 }

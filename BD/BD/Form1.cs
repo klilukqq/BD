@@ -93,8 +93,11 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "INSERT INTO Поставщик VALUES (" + numpost + ", '" + name + "', '" + address + "')";
+            string query = "INSERT INTO Поставщик VALUES ( @numpost , @name,  @address)";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
+            dbCommand.Parameters.AddWithValue("@numpost", numpost.ToString());
+            dbCommand.Parameters.AddWithValue("@name", name.ToString());
+            dbCommand.Parameters.AddWithValue("@address", address.ToString());
 
 
 
@@ -126,8 +129,12 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "UPDATE [Поставщик] SET [Название поставщика]='" + name + "',[Адрес поставщика]= '" + address + "' WHERE [Номер поставщика]=" + numpost;
+            string query = "UPDATE [Поставщик] SET [Название поставщика]=@name ,[Адрес поставщика]= @address  WHERE [Номер поставщика]=@numpost";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
+
+            dbCommand.Parameters.AddWithValue("@name", name.ToString());
+            dbCommand.Parameters.AddWithValue("@address", address.ToString());
+            dbCommand.Parameters.AddWithValue("@numpost", numpost.ToString());
 
 
 
@@ -242,9 +249,12 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "INSERT INTO Договоры VALUES (" + numdog + ", '" + date + "', '" + numpost + "', '" + numshop + "')";
+            string query = "INSERT INTO Договоры VALUES ( @numdog,  @date ,  @numpost,  @numshop)";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
-
+            dbCommand.Parameters.AddWithValue("@numdog", numdog);
+            dbCommand.Parameters.AddWithValue("@date", date);
+            dbCommand.Parameters.AddWithValue("@numpost", numpost);
+            dbCommand.Parameters.AddWithValue("@numshop", numshop);
 
 
             if (dbCommand.ExecuteNonQuery() != 1)
@@ -276,9 +286,13 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "UPDATE [Договоры] SET [Дата]='" + date + "',[Номер поставщика]= '" + numpost + "',[Номер магазина]= '" + numshop + "'WHERE [Номер договора]="+ numdog;
+            string query = "UPDATE [Договоры] SET [Дата]=@date ,[Номер поставщика]= @numpost ,[Номер магазина]= @numshop WHERE [Номер договора]= @numdog";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
 
+            dbCommand.Parameters.AddWithValue("@date", date);
+            dbCommand.Parameters.AddWithValue("@numpost", numpost);
+            dbCommand.Parameters.AddWithValue("@numshop", numshop);
+            dbCommand.Parameters.AddWithValue("@numdog", numdog);
 
 
             if (dbCommand.ExecuteNonQuery() != 1)
@@ -387,10 +401,6 @@ namespace BD
             string name = dataGridView1.Rows[index].Cells[1].Value.ToString();
             string spec = dataGridView1.Rows[index].Cells[2].Value.ToString();
             string inn = dataGridView1.Rows[index].Cells[3].Value.ToString();
-            //messagebox.showMessageBox.Show
-
-
-            dataGridView1.Rows[index].Cells[3].Value.ToString();
             string adr = dataGridView1.Rows[index].Cells[4].Value.ToString();
             string nomshopdir = dataGridView1.Rows[index].Cells[5].Value.ToString();
 
@@ -399,8 +409,14 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "INSERT INTO МАГАЗИН VALUES (" + nomshop + ", '" + name + "', '" + spec + "', " + inn + ", '" + adr + "', " + nomshopdir + " )";
+            string query = "INSERT INTO МАГАЗИН VALUES ( @nomshop ,  @name ,  @spec ,  @inn ,  @adr ,  @nomshopdir )";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
+            dbCommand.Parameters.AddWithValue("@nomshop", nomshop);
+            dbCommand.Parameters.AddWithValue("@name", name);
+            dbCommand.Parameters.AddWithValue("@spec", spec);
+            dbCommand.Parameters.AddWithValue("@inn", inn);
+            dbCommand.Parameters.AddWithValue("@adr", adr);
+            dbCommand.Parameters.AddWithValue("@nomshopdir", nomshopdir);
 
 
 
@@ -435,9 +451,15 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "UPDATE [МАГАЗИН] SET [Название магазина] = '" + name + "', [ИНН] = '" + inn + "', [Специализация] = '" + spec + "', [Адрес] = '" + adr + "', [Табельный номер директора] = " + nomshopdir + " WHERE [Номер магазина] =" + nomshop;
+            string query = "UPDATE [МАГАЗИН] SET [Название магазина] =  @name , [ИНН] = @inn , [Специализация] = @spec , [Адрес] = @adr , [Табельный номер директора] =  @nomshopdir  WHERE [Номер магазина] = @nomshop";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
-
+            
+            dbCommand.Parameters.AddWithValue("@name", name);
+            dbCommand.Parameters.AddWithValue("@spec", spec);
+            dbCommand.Parameters.AddWithValue("@inn", inn);
+            dbCommand.Parameters.AddWithValue("@adr", adr);
+            dbCommand.Parameters.AddWithValue("@nomshopdir", nomshopdir);
+            dbCommand.Parameters.AddWithValue("@nomshop", nomshop);
 
 
             if (dbCommand.ExecuteNonQuery() != 1)
@@ -556,9 +578,12 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "INSERT INTO ОТДЕЛ VALUES (" + nomot + ", " + nomshop + ", '" + name + "', " + tabdir + " )";
+            string query = "INSERT INTO ОТДЕЛ VALUES ( @nomot ,  @nomshop ,  @name ,  @tabdir )";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
-
+            dbCommand.Parameters.AddWithValue("@nomot", nomot);
+            dbCommand.Parameters.AddWithValue("@nomshop", nomshop);
+            dbCommand.Parameters.AddWithValue("@name", name);
+            dbCommand.Parameters.AddWithValue("@tabdir", tabdir);
 
 
             if (dbCommand.ExecuteNonQuery() != 1)
@@ -592,9 +617,13 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "UPDATE [ОТДЕЛ] SET [Номер магазина]=" + nomshop  + ",[Название отдела]= '" + name + "',[Табельный номер заведующего]= " + tabdir + "WHERE [Номер отдела] =" + nomot;
+            string query = "UPDATE [ОТДЕЛ] SET [Номер магазина]= @nomshop ,[Название отдела]=  @name ,[Табельный номер заведующего]=  @tabdir WHERE [Номер отдела] = @nomot";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
 
+            dbCommand.Parameters.AddWithValue("@nomshop", nomshop);
+            dbCommand.Parameters.AddWithValue("@name", name);
+            dbCommand.Parameters.AddWithValue("@tabdir", tabdir);
+            dbCommand.Parameters.AddWithValue("@nomot", nomot);
 
 
             if (dbCommand.ExecuteNonQuery() != 1)
@@ -722,9 +751,17 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "INSERT INTO СОТРУДНИК VALUES (" + tab + ", '" + numshop + "', '" + surname + "', '" + name + "' , '" + otche + "', '" + adr + "', '" + bird + "', '" + sex + "', '" + family  + "')";
+            string query = "INSERT INTO СОТРУДНИК VALUES ( @tab ,  @numshop ,  @surname ,  @name  ,  @otche ,  @adr , @bird ,  @sex ,  @family  )";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
-
+            dbCommand.Parameters.AddWithValue("@tab", tab);
+            dbCommand.Parameters.AddWithValue("@numshop", numshop);
+            dbCommand.Parameters.AddWithValue("@surname", surname);
+            dbCommand.Parameters.AddWithValue("@name", name);
+            dbCommand.Parameters.AddWithValue("@otche", otche);
+            dbCommand.Parameters.AddWithValue("@adr", adr);
+            dbCommand.Parameters.AddWithValue("@bird", bird);
+            dbCommand.Parameters.AddWithValue("@sex", sex);
+            dbCommand.Parameters.AddWithValue("@family", family);
 
 
             if (dbCommand.ExecuteNonQuery() != 1)
@@ -763,8 +800,18 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "UPDATE [Сотрудник] SET [Номер магазина]='" + numshop + "',[Фамилия]= '" + surname + "',[Имя]= '" + name + "' ,[Отчество]= '" + otche + "',[Адрес]= '" + adr + "',[Дата рождения]= '" + bird + "',[Пол]= '" + sex + "',[Семейное положение]= '" + family + "' WHERE [Табельный номер сотрудника] = " + tab;
+            string query = "UPDATE [Сотрудник] SET [Номер магазина]= @numshop,[Фамилия]= @surname ,[Имя]= name ,[Отчество]=  @otche ,[Адрес]=  @adr ,[Дата рождения]=  @bird ,[Пол]=  @sex,[Семейное положение]=  @family  WHERE [Табельный номер сотрудника] = @tab";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
+            
+            dbCommand.Parameters.AddWithValue("@numshop", numshop);
+            dbCommand.Parameters.AddWithValue("@surname", surname);
+            dbCommand.Parameters.AddWithValue("@name", name);
+            dbCommand.Parameters.AddWithValue("@otche", otche);
+            dbCommand.Parameters.AddWithValue("@adr", adr);
+            dbCommand.Parameters.AddWithValue("@bird", bird);
+            dbCommand.Parameters.AddWithValue("@sex", sex);
+            dbCommand.Parameters.AddWithValue("@family", family);
+            dbCommand.Parameters.AddWithValue("@tab", tab);
 
 
 
@@ -888,9 +935,16 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "INSERT INTO Товар VALUES ('" + id + "', " + nompost + ", " + nomshop + ", " + nomotd + " , " + cost + ", " + quality + ", '" + srok + "', '" + data + "')";
+            string query = "INSERT INTO Товар VALUES (@id, @nompost, @nomshop, @nomotd, @cost, @quality, @srok, @data)";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
-            
+            dbCommand.Parameters.AddWithValue("@id", id.ToString());
+            dbCommand.Parameters.AddWithValue("@nompost", nompost.ToString());
+            dbCommand.Parameters.AddWithValue("@nomshop", nomshop.ToString());
+            dbCommand.Parameters.AddWithValue("@nomotd", nomotd.ToString());
+            dbCommand.Parameters.AddWithValue("@cost", cost.ToString());
+            dbCommand.Parameters.AddWithValue("@quality", quality.ToString());
+            dbCommand.Parameters.AddWithValue("@srok", srok);
+            dbCommand.Parameters.AddWithValue("@data", data);
 
 
             if (dbCommand.ExecuteNonQuery() != 1)
@@ -928,9 +982,17 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "UPDATE [Товар] SET [Номер поставщика]= " + nompost + ",[Номер магазина]= " + nomshop + ",[Номер отдела]= " + nomotd + ",[Цена]= " + cost + ",[Количество]= " + quality + ",[Срок годности]= '" + srok + "',[Дата поставки]= '" + data + "' WHERE [Идентификатор товара] ='" + id + "'";
+            string query = "UPDATE [Товар] SET [Номер поставщика]= @nompost ,[Номер магазина]= @nomshop ,[Номер отдела]= @nomotd ,[Цена]=@cost ,[Количество]= @quality ,[Срок годности]=@srok,[Дата поставки]= @data WHERE [Идентификатор товара] =@id ";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
 
+            dbCommand.Parameters.AddWithValue("@nompost", nompost.ToString());
+            dbCommand.Parameters.AddWithValue("@nomshop", nomshop.ToString());
+            dbCommand.Parameters.AddWithValue("@nomotd", nomotd.ToString());
+            dbCommand.Parameters.AddWithValue("@cost", cost.ToString());
+            dbCommand.Parameters.AddWithValue("@quality", quality.ToString());
+            dbCommand.Parameters.AddWithValue("@srok", srok);
+            dbCommand.Parameters.AddWithValue("@data", data);
+            dbCommand.Parameters.AddWithValue("@id", id.ToString());
 
 
             if (dbCommand.ExecuteNonQuery() != 1)
@@ -959,9 +1021,9 @@ namespace BD
 
 
             dbConnection.Open();
-            string query = "DELETE FROM Товар WHERE [Идентификатор товара] ='" + id + "'";
+            string query = "DELETE FROM Товар WHERE [Идентификатор товара] =@id ";
             OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
-
+            dbCommand.Parameters.AddWithValue("@id", id.ToString());
 
 
             if (dbCommand.ExecuteNonQuery() != 1)
